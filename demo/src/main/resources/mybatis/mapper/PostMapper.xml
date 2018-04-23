@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PostDao">
+
+	<resultMap id="PostResultMap" type="com.example.demo.model.Post">
+        <id property="id" column="post_id"/>
+        <result property="title" column="post_title"/>
+        <result property="content" column="post_content"/>
+        <result property="creationDate" column="post_creation_date"/>
+    </resultMap>
+
+	<insert id="save">
+        INSERT INTO `T_POST` (title, content, creationDate) VALUES (#{title}, #{content}, #{creationDate})
+    </insert>
+    
+    <select id="findAll" resultMap="PostResultMap">
+        SELECT
+            p.id as post_id,
+            p.title as post_title,
+            p.content as post_content,
+            p.creationDate as post_creation_date
+        FROM T_POST p
+        ORDER BY p.creationDate DESC
+    </select>
+    
+    <select id="find" resultMap="PostResultMap">
+        SELECT
+            p.id as post_id,
+            p.title as post_title,
+            p.content as post_content,
+            p.creationDate as post_creation_date
+        FROM T_POST p
+        WHERE p.id = #{postId}
+    </select>
+	
+	<update id="update" parameterType="com.example.demo.model.Post">
+        UPDATE T_POST SET 
+	        title = #{title},
+	        content = #{content}
+        WHERE id = #{id}
+    </update>
+	
+	<delete id="delete" parameterType="Long">
+        DELETE FROM T_POST WHERE id = #{postId}
+    </delete>
+</mapper>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="head :: head">
+<body>
+	<div class="container">
+		<div class="container-fluid">
+		
+			<!-- create post -->
+			<h3>发表帖子</h3>
+			<form action="#" th:action="@{/posts}" th:object="${postDto}" method="POST">
+				<div class="row form-group">
+	                <input th:field="*{title}" type="text" class="form-control" placeholder="标题"/>
+	            </div>
+	            <div class="row form-group">
+	                <textarea th:field="*{content}" rows="3" class="form-control" style="resize: vertical" placeholder="正文"></textarea>
+	            </div>
+				<input class="btn btn-primary text-right pull-right" type="submit" value="发表" />
+			</form>
+		
+			<!-- posts list -->
+			<h3>帖子列表</h3>
+			<ul class="list-group">
+				<li class="list-group-item" th:each="post:${posts}">
+					 <div class="media">
+						<div class="media-heading">
+							<h3><a th:href="@{/posts/{postId}(postId=${post.id})}" th:text="${post.title}">title</a></h3>
+							<h5 th:text="${post.content}">title</h5>
+						</div>
+						<span th:text="${'发布于 ' + post.creationDate}"></span>
+					 	<div class="media-right media-middle pull-right">
+							<form th:method="DELETE" th:action="@{/posts/{postId}(postId=${post.id})}">
+								<button class="btn btn-danger" type="submit">删除</button>
+							</form>
+						</div>
+						<div class="media-right media-middle pull-right">
+							<button type="button" class="btn btn-primary editButton" data-toggle="modal"
+							th:attr="data-post-id=${post.id},
+							data-post-title=${post.title}, 
+		                    data-post-content=${post.content},
+		                    data-post-date=${post.creationDate}">编辑</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+			
+			<!-- post edit modal -->
+			<div id="postEditModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			    <div class="modal-dialog modal-lg" role="document">
+			        <div class="modal-content">
+			            <div class="modal-header">
+			               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			               <h4 class="modal-title" id="myModalLabel">修改帖子</h4>
+			            </div>
+			            <div class="modal-body">
+							<div class="container-fluid">
+								<form id="editForm" action="#" th:method="PUT" th:object="${postDto}">
+									<input id="postId" th:field="*{id}" hidden="true" type="text"/>
+									<div class="row form-group">
+			                            标题：
+			                            <input id="postTitle" th:field="*{title}" type="text" class="form-control" placeholder="标题" />
+			                        </div>
+									<div class="row form-group">
+			                            正文：
+			                            <textarea id="postContent" th:field="*{content}" class="form-control" rows="5" style="resize: vertical" placeholder="正文"></textarea>
+			                        </div>
+			                        <div class="modal-footer">
+			                           <button class="btn btn-default" data-dismiss="modal">关闭</button>
+			                           <button class="btn btn-primary" type="submit">保存</button>
+			                        </div>
+			                    </form>
+							</div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			
+		</div>
+	</div>
+</body>
+<script>
+$(document).ready(function() {
+	$(".editButton").click(function(event){
+        event.preventDefault();
+        var postId = $(this).data('post-id');
+        var postTitle = $(this).data('post-title');
+        var postContent = $(this).data('post-content');
+        $("#postEditModal").modal();
+        
+        //filling up form
+		$(".modal-body #postId").val(postId);
+		$(".modal-body #postTitle").val(postTitle);
+		$(".modal-body #postContent").val(postContent);
+		$(".modal-body #editForm").attr('action', "/posts");
+    })
+});
+</script>
+</html>

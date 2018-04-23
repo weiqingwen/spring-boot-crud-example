@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:include="head :: head">
+<body>
+	<div class="container">
+		<div class="media">
+			<div class="media-heading">
+				<h1 th:text="${post.title}">title</h1>
+				<h3 th:text="${post.content}">title</h3>
+			</div>
+			<span th:text="${'发布于 ' + post.creationDate}"></span>
+		</div>
+		<h3><a href="/posts">返回</a></h3>
+	</div>
+</body>
+</html>
