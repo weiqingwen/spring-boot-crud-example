@@ -1,8 +1,8 @@
-#Spring Boot + MyBatis + Thymeleaf实现简单留言板应用
+# Spring Boot + MyBatis + Thymeleaf实现简单留言板应用
 
 本文主要介绍使用Spring Boot + MyBatis + Thymeleaf + Bootstrap来实现一个简单的增删改查（CRUD）留言板应用。
 
-##使用Spring Initializr构建项目
+## 使用Spring Initializr构建项目
 Spring Initializr是一个基于web的快速构建Spring Boot项目的工具。
 
 1. 登录[https://start.spring.io](https://start.spring.io)
@@ -11,7 +11,7 @@ Spring Initializr是一个基于web的快速构建Spring Boot项目的工具。
 
 ![](images/spring-initializr.png)
 
-##导入项目
+## 导入项目
 本教程使用eclipse作为IDE。
 
 1. 解压压缩包。
@@ -21,7 +21,7 @@ Spring Initializr是一个基于web的快速构建Spring Boot项目的工具。
 ![](images/import.png)
 ![](images/existing-projects.png)
 
-##pom.xml文件
+## pom.xml文件
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -88,7 +88,7 @@ Spring Initializr是一个基于web的快速构建Spring Boot项目的工具。
 </project>
 ```
 
-##配置MySQL数据库
+## 配置MySQL数据库
 先在本地MySQL数据库创建用户名为```root```密码为```root```的用户。
 
 创建一个名为```crudDemoDB```空的数据库（schema），使用UTF8编码格式是为了对汉字存储友好：
@@ -97,10 +97,10 @@ Spring Initializr是一个基于web的快速构建Spring Boot项目的工具。
 CREATE DATABASE crudDemoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-##实体类
+## 实体类
 
-##控制器
+## 控制器
 
-##DAO层
+## DAO层
 
-##业务逻辑层
+## 业务逻辑层
